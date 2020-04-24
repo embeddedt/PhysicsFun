@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60.208332mm"
+   height="60.208332mm"
+   viewBox="0 0 60.208332 60.208332"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="ccwwheel.svg"
+   inkscape:export-filename="C:\Users\trains\ubuntu\VSCodeProjects\PhysicsFun\sprites\ccwwheel.png"
+   inkscape:export-xdpi="30.374533"
+   inkscape:export-ydpi="30.374533">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.93566975"
+     inkscape:cx="-385.21523"
+     inkscape:cy="-116.22048"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-25.458334,-57.874998)">
+    <circle
+       style="fill:#ff34a6;fill-opacity:1;fill-rule:nonzero;stroke:#ff34a6;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path815"
+       cx="55.5625"
+       cy="87.979164"
+       r="29.104166" />
+    <path
+       style="fill:#f6aac7;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.91925073;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 55.56244,59.486786 A 28.492521,28.492521 0 0 0 27.070122,87.979104 28.492521,28.492521 0 0 0 55.56244,116.47194 28.492521,28.492521 0 0 0 84.055273,87.979104 28.492521,28.492521 0 0 0 55.56244,59.486786 Z M 38.072034,69.626735 h 3.495394 c 0.482622,0 0.873848,0.391222 0.873848,0.873849 v 5.688541 c 3.333526,-3.702031 8.175834,-6.018589 13.558861,-5.979479 9.9705,0.07239 17.948265,8.129469 17.927071,18.100187 -0.02121,9.956869 -8.099599,18.021637 -18.061429,18.021637 -4.667432,0 -8.920972,-1.77024 -12.126391,-4.6762 -0.371352,-0.3366 -0.388529,-0.91429 -0.03411,-1.26866 l 2.47375,-2.473746 c 0.325826,-0.325829 0.849631,-0.343583 1.19476,-0.03824 2.260268,2.000059 5.232744,3.213756 8.491987,3.213756 7.083769,0 12.817822,-5.732881 12.817822,-12.817822 0,-7.083692 -5.732891,-12.817822 -12.817822,-12.817822 -4.260111,0 -8.031083,2.073908 -10.361124,5.267896 h 7.156668 c 0.482624,0 0.874366,0.391221 0.874366,0.873848 v 3.495911 c 0,0.482624 -0.391742,0.873848 -0.874366,0.873848 H 38.07203 c -0.482627,0 -0.874365,-0.391224 -0.874365,-0.873848 V 70.500584 c 0,-0.482627 0.391738,-0.873849 0.874365,-0.873849 z"
+       id="path817"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

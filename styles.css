@@ -1,0 +1,334 @@
+* {
+    font-family: Helvetica, Arial, sans-serif;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+}
+
+
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: auto;
+    position: relative;
+    background-size: cover;
+    background-color: #000c1f;
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+    position: relative;
+    z-index: 0;
+}
+
+html, body, #game-container {
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    overscroll-behavior: none;
+}
+
+.evidence-image {
+    max-width: 10rem;
+}
+
+.body,
+.wrapper {
+    /* Break the flow */
+    position: absolute;
+    top: 0px;
+
+    /* Give them all the available space */
+    width: 100%;
+    height: 100%;
+
+    /* Remove the margins if any */
+    margin: 0;
+
+    /* Allow them to scroll down the document */
+    overflow: hidden;
+}
+
+.body {
+    /* Sending body at the bottom of the stack */
+    z-index: 1;
+}
+
+.wrapper {
+    /* Making the wrapper stack above the body */
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: flex-start;
+}
+
+#game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    display: flex;
+    align-items:  center;
+    flex-direction: column;
+}
+
+#game-container canvas {
+    opacity: 0;
+}
+
+.item-list {
+    display: flex;
+    list-style-type: none;
+    background-color: white;
+    border-radius: 0.2rem;
+    padding: 0;
+    pointer-events: auto;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.item-list-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.item-list li {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-list .physics-choice-button {
+    min-width: 100%;
+    min-height: 100%;
+    padding: 0.5rem;
+}
+
+.item-list .physics-choice-image-container {
+    margin-right: 0;
+}
+
+
+
+.item-list .physics-choice-button span {
+    display: none;
+}
+
+
+
+.control-button {
+    border: none;
+    background: none;
+    padding: 0.3em;
+    vertical-align: middle;
+    margin: 0 0.1em;
+    display: inline-flex;
+    position: relative;
+}
+
+.loading-text {
+    color: white;
+    font-family: sans-serif;
+    font-size: 1.25rem;
+}
+
+.controls-separator {
+    height: 0.8em;
+    vertical-align: middle;
+    width: 1px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.top-controls, .bottom-controls {
+    font-size: 32px;
+    display: inline-block;
+    text-align: center;
+    z-index: 1;
+    background-color: #fff;
+    box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.3);
+    padding: 0 0.5rem;
+    color: black;
+    text-shadow: 1px 1px 2px black; 
+    user-select: none;
+    -moz-user-select: none;
+    pointer-events: auto;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    max-width: 75%;
+    transition: opacity 0.1s;
+    line-height: 1;
+}
+
+.top-controls.control-bar-no-shadow, .bottom-controls.control-bar-no-shadow {
+    box-shadow: none;
+}
+
+.control-group {
+    white-space: nowrap;
+    display: inline-block;
+    height: auto;
+}
+.top-controls {
+    border-bottom-left-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+}
+.bottom-controls {
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+}
+
+.build-button {
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 0.25em;
+    margin: 0;
+    background-color: #ddd;
+    border: none;
+    box-shadow: 1px 1px 2px 0px rgba(64, 64, 64, 0.75);
+    box-sizing: border-box;
+}
+
+.hoverable-button {
+    position: relative;
+    border: none;
+    background-color: transparent;
+}
+.hoverable-button > * {
+    pointer-events: none;
+    position: relative;
+    z-index: 1;
+}
+.hoverable-button:focus {
+    outline: none;
+}
+.hoverable-button::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    display: block;
+    content: '';
+    transition: opacity 0.2s linear;
+    pointer-events: none;
+}
+.hoverable-button:not(:disabled):hover {
+    cursor: pointer;
+}
+
+.hoverable-button:not(:disabled):active:hover::after, button.hoverable-button-active:not(:disabled):hover::after {
+    opacity: 0.4;
+}
+.hoverable-button:not(:disabled):hover::after {
+    opacity: 0.1;
+}
+.hoverable-button:not(:disabled):active::after, .hoverable-button-active::after {
+    opacity: 0.3;
+}
+.hoverable-button:disabled {
+    background-color: rgba(128, 128, 128, 0.8);
+    pointer-events: none;
+}
+.hoverable-button:disabled i {
+    opacity: 0.2;
+}
+
+.fa-play {
+    color: green;
+}
+.fa-stop {
+    color: red;
+}
+
+.fa-plus {
+    color: blue;
+}
+
+.physics-choice-list {
+    list-style: none;
+    padding-left: 0;
+    display: inline-block;
+    display: flex;
+    flex-direction: column;
+}
+.physics-choice-list li {
+    min-height: 40px;
+    display: inline-flex;
+}
+.physics-choice-button {
+    display: flex;
+    padding: 0.2rem;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+.physics-choice-image-container {
+    width: 40px;
+    height: auto;
+    flex: none;
+    margin-right: 0.2rem;
+    display: inline-block;
+}
+.physics-choice-image {
+    max-width: 100%;
+}
+.physics-choice-button span {
+    margin-right: auto;
+    text-align: left;
+    display: inline-block;
+}
+
+.bottom-message {
+    border-radius: 1.5rem;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.5s, transform 0.5s;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 1.5rem;
+}
+.bottom-message-visible {
+    transform: translateY(-1rem) translateX(-50%);
+    padding: 2rem;
+    pointer-events: none;
+    opacity: 1;
+}
+
+.control-bar-translucent:not(.item-list-hidden) {
+    opacity: 0.5;
+    pointer-events: none;
+}
