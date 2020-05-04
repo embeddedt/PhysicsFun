@@ -332,3 +332,13 @@ html, body, #game-container {
     opacity: 0.5;
     pointer-events: none;
 }
+
+.component-font {
+    max-height: 1.3em;
+    object-fit: contain;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}

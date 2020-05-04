@@ -344,6 +344,9 @@ export default class MainScene extends Phaser.Scene {
         }, this);
         const scene = this;
         window.gameLoadResolve();
+        function ComponentImage(props) {
+            return <img className="component-font" src={props.src}/>;
+        }
         function PhysicsComponent(props) {
             const onClick = () => {
                 props.setChosenElement(baseName(props.sprite), props.behavior, props.name, props.type, props.behavConfig, props.extraConfig);
@@ -383,17 +386,21 @@ export default class MainScene extends Phaser.Scene {
                 setConstraintTargets([]);
             }
             const tryBreakConstraints = () => {
-                resetState();
-                if(scene.constraintObjects.length < 1) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'There are no constraints to break.',
-                        icon: 'error'
-                    });
-                    setCanvasPointerDown(false);
-                    return;
+                if(!wantsToBreakConstraints) {
+                    if(scene.constraintObjects.length < 1) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'There are no constraints to break.',
+                            icon: 'error'
+                        });
+                        setCanvasPointerDown(false);
+                        return;
+                    }
+                    resetState();
+                    setWantsToBreakConstraints(true)
+                } else {
+                    setWantsToBreakConstraints(false)
                 }
-                setWantsToBreakConstraints(!wantsToBreakConstraints)
             }
             const setChosenElement = React.useCallback((bn, behavior, name, type, behavConfig, extraConfig) => {
                 ReactSwal.close();
@@ -427,6 +434,7 @@ export default class MainScene extends Phaser.Scene {
                 
                 if(itemListShown) {
                     setItemListShown(false);
+                    setAddingComponent(null);
                     return;
                 }
                 resetState();
@@ -516,7 +524,7 @@ export default class MainScene extends Phaser.Scene {
                 };
                 if(window.physicsLevelNumber == 1) {
                     ReactSwal.fire({
-                        title: 'Instructions',
+                        title: 'Game instructions',
                         html: <>
                             Place objects using the <i className="fas fa-plus"></i> button. You can drag them anywhere on the map and
                             link them together using air rods. Air rods do have a limited range which you'll need to be aware of.
@@ -529,6 +537,16 @@ export default class MainScene extends Phaser.Scene {
                             <p></p>
                             Once you're done building your contraption, press <i className="fas fa-play"></i> to start the physics
                             simulation and see if it works!
+                            <p></p>
+                            <h2>How to complete the tutorial level</h2>
+                            The only obstacle you need to overcome in this level is a hill,
+                            so you won't need any advanced components like magnets or unpowered
+                            wheels.
+                            <p></p>
+                            Create a single powered wheel (<ComponentImage src="sprites/clockwisewheel.png"/>) and
+                            attach it to the main wheel (<ComponentImage src="sprites/mainwheel.png"/>) with
+                            an air rod (<ComponentImage src="sprites/airrod.png"/>).
+                            (If you don't use the air rod, the wheel will just roll away on its own.)
                         </>
                     })
                 }
@@ -576,7 +594,6 @@ export default class MainScene extends Phaser.Scene {
                                 scene.setCursorOn(wheel);
                                 scene.setupEvents(wheel);
                             }
-                            setAddingComponent(null);
                         } else if(addingComponent.type == CONSTRAINT) {
                             if(scene.resizeSprites.indexOf(gameObject) != -1) {
                                 if(gameObject == constraintTargets[0]) {
@@ -652,7 +669,6 @@ export default class MainScene extends Phaser.Scene {
                     } else {
                         if(wantsToBreakConstraints) {
                             setConstraintTargets([]);
-                            setWantsToBreakConstraints(false);
                             scene.constraintObjects = scene.constraintObjects.filter((constraint, index) => {
                                 if((constraint[0] == constraintTargets[0] && constraint[1] == constraintTargets[1]) || (constraint[1] == constraintTargets[0] && constraint[0] == constraintTargets[1])) {
                                     if(scene.constraints[index] != null)
@@ -678,10 +694,10 @@ export default class MainScene extends Phaser.Scene {
                                 setCanvasPointerDown(false);
                             } else {
                                 scene.addConstraint(constraintTargets[0], constraintTargets[1]);
+                                setConstraintTargets([]);
                             }
                         }
                     }
-                    setAddingComponent(null);
                     scene.lastSelectedConstraintItem = null;
                 }
             }, [ constraintTargets, wantsToBreakConstraints ]);
