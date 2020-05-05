@@ -418,9 +418,32 @@ export default class MainScene extends Phaser.Scene {
                     return;
                 }
                 setConstraintTargets([]);
+                setWantsToBreakConstraints(false);
                 setAddingComponent({ bn, behavior, name, type, behavConfig, extraConfig });
             }, [ setConstraintTargets, setCanvasPointerDown,  setAddingComponent ]);
-           
+            
+            const hintImg = React.useMemo(() => {
+                if(window.physicsLevelNumber == 2) {
+                    return "sprites/hint_spikes.png";
+                } else if(window.physicsLevelNumber == 3)
+                    return "sprites/hint_dropzone.png";
+                else if(window.physicsLevelNumber == 4)
+                    return "sprites/hint_underground.png";
+                else if(window.physicsLevelNumber == 5)
+                    return "sprites/hint_squarecliff.png";
+                else if(window.physicsLevelNumber == 6)
+                    return "sprites/hint_shadowvalley.png";
+                return null;
+            }, [ window.physicsLevelNumber ]);
+            const showHint = () => {
+                Swal.fire({
+                    customClass: {
+                        image: "swal2-hint-image"
+                    },
+                    grow: 'fullscreen',
+                    imageUrl: hintImg
+                });
+            };
             const physicsOptions = React.useMemo(() => <>
                 <PhysicsComponent activeName={addingComponent?.name} onHover={setHoveredItem} onHoverOut={onItemRelease} setChosenElement={setChosenElement} sprite="sprites/wheel.png" name="Unpowered wheel" type={REGULAR_OBJECT}/>
                 <PhysicsComponent activeName={addingComponent?.name} onHover={setHoveredItem} onHoverOut={onItemRelease} extraConfig={{plugin: { attractors: [ MagnetAttractor.bind(void 0, scene, true) ] }}} setChosenElement={setChosenElement} sprite="sprites/redmagnet.png" name="Positive magnet (attracts negative magnets, repels positive magnets)" type={REGULAR_OBJECT}/>
@@ -477,10 +500,10 @@ export default class MainScene extends Phaser.Scene {
                 const gr_fn = () => {
                     setDisableAllUI(true);
                     setHoveredItem(null);
-                    setTimeout(() => {
+                    setTimeout(async() => {
                         resetState();
                         scene.scene.pause();
-                        Swal.fire({
+                        const res = await Swal.fire({
                             title: 'Great job!',
                             text: 'You finished the level!',
                             icon: 'success',
@@ -488,8 +511,16 @@ export default class MainScene extends Phaser.Scene {
                             allowEnterKey: false,
                             allowEscapeKey: false,
                             confirmButtonText: 'Choose another level',
+                            cancelButtonText: 'Play again',
+                            showCancelButton: true,
                             preConfirm: () => { window.location.reload(false); return false; }
                         });
+                        if(res.dismiss == Swal.DismissReason.cancel) {
+                            scene.scene.resume();
+                            scene.hasReachedGoal = false;
+                            setPaused(true);
+                            setDisableAllUI(false);
+                        }
                     }, 2000);
                 };
                 const info_fn = async(sprite) => {
@@ -603,6 +634,7 @@ export default class MainScene extends Phaser.Scene {
                                         icon: 'error'
                                     });
                                     setCanvasPointerDown(false);
+                                    scene.lastSelectedConstraintItem = null;
                                     return;
                                 }
                                 /* Valid object */
@@ -739,6 +771,7 @@ export default class MainScene extends Phaser.Scene {
                     <ControlButton onMouseOver={() => setHoveredItem("Add component")} onMouseOut={onItemRelease} disabled={!isPaused} active={itemListShown} onClick={startAddElement}><i className={classnames("fas", "fa-plus")}></i></ControlButton>
                     <ControlButton onMouseOver={() => setHoveredItem("Remove component")} onMouseOut={onItemRelease} active={wantsToRemove} disabled={!isPaused} onClick={() => { resetState(); setWantsToRemove(!wantsToRemove)}}><i className={classnames("fas", "fa-trash")}></i></ControlButton>
                     <ControlButton onMouseOver={() => setHoveredItem("Break constraints")} onMouseOut={onItemRelease} active={wantsToBreakConstraints} disabled={!isPaused} onClick={tryBreakConstraints}><i className={classnames("fas", "fa-unlink")}></i></ControlButton>
+                    {hintImg && <ControlButton onMouseOver={() => setHoveredItem("Show hint")} onMouseOut={onItemRelease} disabled={!isPaused} onClick={showHint}><i className={classnames("fas", "fa-lightbulb")}></i></ControlButton>}
                 </ControlBar>}
                 <ul className={classnames("item-list", !itemListShown && "item-list-hidden", canvasPointerDown && "control-bar-translucent")}>
                     {physicsOptions}
