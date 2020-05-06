@@ -87,7 +87,8 @@ export default class MainScene extends Phaser.Scene {
             tile.physics.matterBody.gameObject = tile;
         });
         
-        this.cameras.main.setBounds(0, -(this.currentScaleValue*200), this.groundLayer.displayWidth, this.groundLayer.displayHeight);
+        const extraDistance = (this.currentScaleValue*200);
+        this.cameras.main.setBounds(0, -extraDistance, this.groundLayer.displayWidth, this.groundLayer.displayHeight + extraDistance);
 
     }
     createImage(spriteNum, x, y, behavior, behavConfig, extraConfig) {
@@ -568,6 +569,12 @@ export default class MainScene extends Phaser.Scene {
                             <p></p>
                             Once you're done building your contraption, press <i className="fas fa-play"></i> to start the physics
                             simulation and see if it works!
+                            <p></p>
+                            If you can't figure out how to make a contraption work, you can use the <i className="fas fa-lightbulb"></i> button
+                            to look at a hint. Hints will show you part of the contraption you need to build (the missing components are marked with ?).
+                            
+                            In some cases, you may need to change up the distances between objects a bit in order to get it to behave. The *square cliff*
+                            level is an example of this.
                             <p></p>
                             <h2>How to complete the tutorial level</h2>
                             The only obstacle you need to overcome in this level is a hill,
