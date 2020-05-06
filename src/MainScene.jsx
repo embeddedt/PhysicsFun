@@ -572,9 +572,12 @@ export default class MainScene extends Phaser.Scene {
                             <p></p>
                             If you can't figure out how to make a contraption work, you can use the <i className="fas fa-lightbulb"></i> button
                             to look at a hint. Hints will show you part of the contraption you need to build (the missing components are marked with ?).
-                            
+                            <p></p>
                             In some cases, you may need to change up the distances between objects a bit in order to get it to behave. The *square cliff*
                             level is an example of this.
+                            <p></p>
+                            A final note: there can be more than one way to solve the levels, so if you don't succeed at first, try a different
+                            contraption!
                             <p></p>
                             <h2>How to complete the tutorial level</h2>
                             The only obstacle you need to overcome in this level is a hill,
