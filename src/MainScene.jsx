@@ -87,7 +87,7 @@ export default class MainScene extends Phaser.Scene {
             tile.physics.matterBody.gameObject = tile;
         });
         
-        this.cameras.main.setBounds(0, 0, this.groundLayer.displayWidth, this.groundLayer.displayHeight);
+        this.cameras.main.setBounds(0, -(this.currentScaleValue*200), this.groundLayer.displayWidth, this.groundLayer.displayHeight);
 
     }
     createImage(spriteNum, x, y, behavior, behavConfig, extraConfig) {
